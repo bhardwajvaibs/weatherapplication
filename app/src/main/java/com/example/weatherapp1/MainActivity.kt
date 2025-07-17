@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.AsyncTask
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import org.json.JSONObject
 import java.net.URL
 import java.text.SimpleDateFormat
@@ -16,14 +19,29 @@ import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
-    private val CITY: String = "punjab,in"
+    private var CITY: String = ""
     private val API: String = "60e1bc5b9c6f5590f77bf44b2127543f" // Use API key
-
+    private fun showError() {
+        findViewById<ProgressBar>(R.id.loader).visibility = View.GONE
+        findViewById<RelativeLayout>(R.id.mainContainer).visibility = View.VISIBLE
+        findViewById<TextView>(R.id.errorText).visibility = View.VISIBLE
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        weatherTask().execute()
+        val searchButton = findViewById<Button>(R.id.searchButton)
+        val searchInput = findViewById<EditText>(R.id.searchCity)
+
+        searchButton.setOnClickListener {
+            val userCity = searchInput.text.toString().trim()
+            if (userCity.isNotEmpty()) {
+                CITY = userCity
+                weatherTask().execute()
+            } else {
+                Toast.makeText(this, "Enter a city name", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
     inner class weatherTask():AsyncTask<String,Void,String>(){
         override fun onPreExecute(){
@@ -41,13 +59,22 @@ class MainActivity : AppCompatActivity() {
             catch(e:Exception){
                 response=null
             }
-            return response!!
+            return response ?:""
         }
 
         override fun onPostExecute(result:String?) {
             super.onPostExecute(result)
+
+            if (result.isNullOrEmpty()) {
+                showError()
+                return
+            }
             try{
                 val jsonObj=JSONObject(result)
+                if (jsonObj.getInt("cod") != 200) {
+                    showError()
+                    return
+                }
                 val main=jsonObj.getJSONObject("main")
                 val sys=jsonObj.getJSONObject("sys")
                 val wind=jsonObj.getJSONObject("wind")
@@ -65,7 +92,9 @@ class MainActivity : AppCompatActivity() {
                 val weatherDescription=weather.getString("description")
                 val address=jsonObj.getString("name")+", "+sys.getString("country")
 
-                findViewById<TextView>(R.id.address).text=address
+
+//                findViewById<TextView>(R.id.address).text=address
+
                 findViewById<TextView>(R.id.updated_at).text=updatedAtText
                 findViewById<TextView>(R.id.status).text=weatherDescription.capitalize()
                 findViewById<TextView>(R.id.temp).text=temp

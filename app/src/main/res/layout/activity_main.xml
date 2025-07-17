@@ -22,21 +22,40 @@ android:background="@drawable/gradient_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/address"
-            android:textSize="24sp"
-            android:textColor="@color/black"
-            android:text="Location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+<!--        <TextView-->
+<!--            android:id="@+id/address"-->
+<!--            android:textSize="24sp"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="Location"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content">-->
 
-        </TextView>
+<!--        </TextView>-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+        <EditText
+            android:id="@+id/searchCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="City, Country"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/searchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/updated_at"
             android:textSize="14sp"
             android:text="Updated at"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -53,8 +72,8 @@ android:background="@drawable/gradient_bg"
             android:id="@+id/status"
             android:textSize="18sp"
             android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:text="Clear Sky"
+            android:textColor="@color/white"
+            android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -65,8 +84,8 @@ android:background="@drawable/gradient_bg"
             android:textSize="90sp"
             android:fontFamily="sans-serif-thin"
             android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:text="24°C"
+            android:textColor="@color/white"
+            android:text="°C"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -81,7 +100,7 @@ android:background="@drawable/gradient_bg"
             <TextView
                 android:id="@+id/temp_min"
                 android:text="Min Temp"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -96,7 +115,7 @@ android:background="@drawable/gradient_bg"
             <TextView
                 android:id="@+id/temp_max"
                 android:text="Max Temp"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -149,7 +168,7 @@ android:background="@drawable/gradient_bg"
                     android:id="@+id/sunrise"
                     android:textSize="14sp"
                     android:textColor="@color/black"
-                    android:text="5:30am"
+                    android:text="0:00am"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
@@ -193,7 +212,7 @@ android:background="@drawable/gradient_bg"
                     android:id="@+id/sunset"
                     android:textSize="14sp"
                     android:textColor="@color/black"
-                    android:text="5:30am"
+                    android:text="0:00am"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
@@ -237,7 +256,7 @@ android:background="@drawable/gradient_bg"
                     android:id="@+id/wind"
                     android:textSize="14sp"
                     android:textColor="@color/black"
-                    android:text="5:30am"
+                    android:text="0 Km/h"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
@@ -291,7 +310,7 @@ android:background="@drawable/gradient_bg"
                     android:id="@+id/pressure"
                     android:textSize="14sp"
                     android:textColor="@color/black"
-                    android:text="5:30am"
+                    android:text="0 mBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
@@ -334,7 +353,7 @@ android:background="@drawable/gradient_bg"
                 <TextView
                     android:id="@+id/humidity"
                     android:textSize="14sp"
-                    android:text="5:30am"
+                    android:text="0%"
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -403,9 +422,13 @@ android:background="@drawable/gradient_bg"
 
 <TextView android:id="@+id/errorText"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" android:layout_centerInParent="true"
+    android:layout_height="wrap_content"
+  android:layout_centerHorizontal="true"
+    android:layout_marginTop="200dp"
     android:visibility="gone"
-    android:text="Something went wrong">
+    android:text="No City Found."
+    android:textColor="@color/white"
+    android:textSize="30dp">
 </TextView>
 
 
